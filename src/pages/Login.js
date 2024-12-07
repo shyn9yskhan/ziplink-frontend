@@ -62,12 +62,12 @@ const Login = () => {
               alignSelf: 'center'
             }}
           >
-            Log In
+            Log in
           </button>
         </form>
         {error && <p style={{ color: 'red' }}>{error}</p>}
-        <p style={{ marginTop: '10px' }}>
-          Do not have an account? <Link to="/signup" style={{ color: 'blue', textDecoration: 'underline' }}>Sign Up</Link>
+        <p style={{ marginTop: '40px' }}>
+          Do not have an account? <Link to="/signup" style={{ color: 'blue', textDecoration: 'underline' }}>Sign up</Link>
         </p>
       </div>
   );

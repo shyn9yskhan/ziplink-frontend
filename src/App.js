@@ -6,6 +6,7 @@ import Signup from './pages/Signup';
 import Profile from './pages/Profile';
 import Links from './pages/Links';
 import Settings from './pages/Settings';
+import PublicProfile from './pages/PublicProfile';
 import Navbar from './components/NavBar';
 import { isAuthenticated } from './services/authService';
 
@@ -17,6 +18,7 @@ function App() {
       <Route path='/' element={<Home/>}/>
       <Route path='/login' element={<Login/>}/>
       <Route path='/signup' element={<Signup/>} />
+      <Route path='/:username' element={<PublicProfile/>}/>
 
       {/* Authenticated Routes */}
       <Route

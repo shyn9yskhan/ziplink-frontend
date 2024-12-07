@@ -25,7 +25,7 @@ const Signup = () => {
 
   return (
     <div style={{ maxWidth: '300px', margin: '0 auto' , marginTop: '100px'}}>
-      <h2>Sign Up</h2>
+      <h2>Sign up</h2>
       <form onSubmit={handleSignup} style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
         <input
           type="email"
@@ -77,7 +77,7 @@ const Signup = () => {
           cursor: 'pointer',
           alignSelf: 'center'
         }}
-        >Sign Up</button>
+        >Sign up</button>
       </form>
       {error && <p style={{ color: 'red' }}>{error}</p>}
       {success && <p style={{ color: 'green' }}>{success}</p>}
