@@ -9,26 +9,32 @@ import Settings from './pages/Settings';
 import PublicProfile from './pages/PublicProfile';
 import Navbar from './components/NavBar';
 import { isAuthenticated } from './services/authService';
+import { AuthProvider, useAuth } from './context/AuthContext';
 
 function App() {
   return (
-    <Router>
-  <div className="App">
-    <Routes>
-      <Route path='/' element={<Home/>}/>
-      <Route path='/login' element={<Login/>}/>
-      <Route path='/signup' element={<Signup/>} />
-      <Route path='/:username' element={<PublicProfile/>}/>
-
-      {/* Authenticated Routes */}
-      <Route
-      path="/app/*"
-      element={isAuthenticated() ? <AuthenticatedLayout /> : <Navigate to="/login" />}
-      />
-    </Routes>
-  </div>
-  </Router>
+      <AuthProvider>
+          <Router>
+              <div className="App">
+                  <Routes>
+                      <Route path='/' element={<Home/>}/>
+                      <Route path='/login' element={<Login/>}/>
+                      <Route path='/signup' element={<Signup/>} />
+                      <Route path='/:username' element={<PublicProfile/>}/>
+                      <Route path="/app/*" element={<ProtectedRoutes/>} />
+                  </Routes>
+              </div>
+          </Router>
+      </AuthProvider>
   );
+}
+
+function ProtectedRoutes() {
+  const { isAuthenticated, initialized } = useAuth();
+
+  if (!initialized) return <div>Loading...</div>;
+  
+  return isAuthenticated ? <AuthenticatedLayout/> : <Navigate to="/login" replace />;
 }
 
 function AuthenticatedLayout() {

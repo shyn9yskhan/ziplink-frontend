@@ -29,28 +29,27 @@ export const signup = async (email, username, password) => {
   
 export const login = async (username, password) => {
   try {
-    const response = await fetch(`${API_URL}/auth/token`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',  // Required header for JSON data
-      },
-      body: JSON.stringify({ username, password })
-    });
+      const response = await fetch(`${API_URL}/auth/token`, {
+          method: 'POST',
+          headers: {
+              'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ username, password }),
+      });
 
-    if (!response.ok) {
-      const errorData = await response.json();
-      throw new Error(errorData.message || 'Login failed');
-    }
+      if (!response.ok) {
+          const errorData = await response.json();
+          throw new Error(errorData.message || 'Login failed');
+      }
 
-    const data = await response.json();  // Parse JSON response
-    const token = data.token;  // Assuming JWT token is in `data.token`
-    localStorage.setItem('jwtToken', token);  // Store token for future requests
-    return token;
+      const data = await response.json();
+      return data;
   } catch (error) {
-    console.error('Login error:', error);
-    throw new Error(error.message || 'Login failed. Please try again.');
+      console.error('Login error:', error);
+      throw error;
   }
 };
+
   
   export const isAuthenticated = () => {
     return Boolean(localStorage.getItem('jwtToken'));  // Return true if token exists

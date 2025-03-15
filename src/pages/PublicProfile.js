@@ -12,9 +12,7 @@ const PublicProfile = () => {
       setLoading(true);
       try {
         const response = await fetch(`http://localhost:9999/profile-content/public/${username}`);
-        if (!response.ok) {
-          throw new Error('Failed to load profile');
-        }
+        if (!response.ok) throw new Error('Profile not found');
         const data = await response.json();
         setProfile(data);
       } catch (err) {
@@ -27,71 +25,103 @@ const PublicProfile = () => {
     fetchProfile();
   }, [username]);
 
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p style={{ color: 'red' }}>{error}</p>;
+  if (loading) return (
+    <div style={{ textAlign: 'center', padding: '2rem' }}>
+      <div style={{ fontSize: '1.5rem' }}>Loading...</div>
+    </div>
+  );
+
+  if (error) return (
+    <div style={{ textAlign: 'center', padding: '2rem' }}>
+      <div style={{ color: '#ef4444', marginBottom: '1rem' }}>{error}</div>
+      <button 
+        onClick={() => window.location.reload()}
+        style={{
+          padding: '0.5rem 1rem',
+          background: '#3b82f6',
+          color: 'white',
+          border: 'none',
+          borderRadius: '4px',
+          cursor: 'pointer'
+        }}
+      >
+        Try Again
+      </button>
+    </div>
+  );
 
   return (
-    <div
-      className="public-profile"
-      style={{
-        display: 'flex',
-        flexDirection: 'column',
-        minHeight: '100vh',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        padding: '20px',
-        boxSizing: 'border-box',
-      }}
-    >
+    <div style={{ 
+      minHeight: '100vh',
+      padding: '2rem',
+      maxWidth: '600px',
+      margin: '0 auto',
+      fontFamily: 'system-ui, sans-serif'
+    }}>
       {profile ? (
-        <div style={{ flex: 1, textAlign: 'center' }}>
-          <h1>{profile.name || username}</h1>
-          <div
-            style={{
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              gap: '15px',
-            }}
-          >
+        <div style={{ textAlign: 'center' }}>
+          <h1 style={{ 
+            fontSize: '2rem',
+            marginBottom: '2rem',
+            color: '#1f2937'
+          }}>
+            {profile.name || username}
+          </h1>
+
+          <div style={{ 
+            display: 'grid',
+            gap: '1.5rem',
+            marginBottom: '3rem'
+          }}>
             {profile.blocks.map((block, index) => (
-              <div
+              <a
                 key={index}
+                href={block.link}
+                target="_blank"
+                rel="noopener noreferrer"
                 style={{
-                  padding: '10px',
-                  border: '3px solid #ccc',
-                  borderRadius: '10px',
-                  maxWidth: '200px',
-                  textAlign: 'center',
-                  wordWrap: 'break-word',
+                  display: 'block',
+                  padding: '1.5rem',
+                  background: '#ffffff',
+                  borderRadius: '0.5rem',
+                  border: '2px solid #000000',
+                  textDecoration: 'none',
+                  color: '#1e293b',
+                  transition: 'transform 0.2s, box-shadow 0.2s',
+                  cursor: 'pointer',
+                  ':hover': {
+                    transform: 'translateY(-3px)',
+                    boxShadow: '0 4px 12px rgba(0,0,0,0.15)'
+                  }
                 }}
               >
-                <p>{block.text}</p>
-                <a href={block.link} target="_blank" rel="noopener noreferrer">
-                  {block.link}
-                </a>
-              </div>
+                <div style={{ 
+                  fontSize: '1.2rem',
+                  fontWeight: '600',
+                  letterSpacing: '0.5px'
+                }}>
+                  {block.text}
+                </div>
+              </a>
             ))}
           </div>
         </div>
       ) : (
-        <p>Profile not found</p>
+        <div style={{ textAlign: 'center' }}>Profile not found</div>
       )}
 
-      {/* Footer with the logo text */}
+      {/* Keep original footer styling */}
       <footer style={{ marginTop: 'auto', padding: '10px' }}>
-        <h2
-          style={{
-            fontFamily: '"Righteous", serif',
-            fontWeight: 400,
-            fontStyle: 'normal',
-            fontSize: '25px',
-            letterSpacing: '2.5px',
-            color: '#7F7F7F',
-            margin: 0,
-          }}
-        >
-        ziplink.kz
+        <h2 style={{
+          fontFamily: '"Righteous", serif',
+          fontWeight: 400,
+          fontStyle: 'normal',
+          fontSize: '25px',
+          letterSpacing: '2.5px',
+          color: '#7F7F7F',
+          margin: 0,
+        }}>
+          ziplink.kz
         </h2>
       </footer>
     </div>

@@ -4,10 +4,17 @@ import './Home.css';
 const Home = () => {
     return (
         <div>
-            <h1 className='ziplink-brand-logo'>ziplink</h1>
-            <p>Welcome to the Home Page!</p>
+            <div className="logo-container">
+                <img 
+                    src={require('../assets/logoIcon.png')} 
+                    alt="Ziplink Logo" 
+                    className="logo-image"
+                />
+                <h1 className='ziplink-brand-logo'>ziplink</h1>
+            </div>
+            <p>All your links, zipped into one ziplink.</p>
             <Link to="/login">
-                <button>Go to Login</button>
+                <button className="login-button">Go to Login</button>
             </Link>
         </div>
     );

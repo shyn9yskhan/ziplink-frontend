@@ -17,7 +17,7 @@ const Signup = () => {
       setSuccess('Registration successful! Redirecting to login...');
       setTimeout(() => {
         navigate('/login');  // Redirect to login page after successful signup
-      }, 3000);
+      }, 2000);
     } catch (err) {
       setError(err.message || 'Signup failed');  // Extract message or use a default message
     }
