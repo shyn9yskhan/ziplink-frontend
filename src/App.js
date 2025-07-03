@@ -7,6 +7,7 @@ import Profile from './pages/Profile';
 import Links from './pages/Links';
 import Settings from './pages/Settings';
 import PublicProfile from './pages/PublicProfile';
+import Search from './pages/Search';
 import Navbar from './components/NavBar';
 import { isAuthenticated } from './services/authService';
 import { AuthProvider, useAuth } from './context/AuthContext';
@@ -45,6 +46,7 @@ function AuthenticatedLayout() {
         <Route path="profile" element={<Profile />} />
         <Route path="links" element={<Links />} />
         <Route path="settings" element={<Settings />} />
+        <Route path="search" element={<Search />} />
       </Routes>
     </div>
   );

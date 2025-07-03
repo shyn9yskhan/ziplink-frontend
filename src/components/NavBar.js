@@ -81,6 +81,28 @@ const Navbar = () => {
       >
         Profile
       </NavLink>
+      <NavLink 
+        to="/app/search"
+        style={({ isActive }) => ({
+          textDecoration: 'none',
+          color: isActive ? '#3b82f6' : '#64748b',
+          fontWeight: '500',
+          fontSize: '1rem',
+          padding: '0.5rem 1rem',
+          borderRadius: '0.375rem',
+          transition: 'all 0.2s ease',
+          ...(isActive && {
+            background: '#f0f4ff',
+            fontWeight: '600'
+          }),
+          ':hover': {
+            background: '#f8fafc',
+            color: '#3b82f6'
+          }
+        })}
+      >
+        Search
+      </NavLink>
     </nav>
   );
 };
